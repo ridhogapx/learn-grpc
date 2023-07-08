@@ -78,7 +78,7 @@ func main() {
 	s := grpc.NewServer()
 
 	pb.RegisterMovieServiceServer(s, &server{})
-	fmt.Printf("Server is listening on port %v", port)
+	fmt.Printf("Server is listening on port %v", *port)
 
 	if errRpc := s.Serve(listen); errRpc != nil {
 		panic("Failed to start gRPC Server!")
