@@ -65,4 +65,6 @@ func main() {
 			"movie": res.Movie,
 		})
 	})
+
+	r.Run(":3000")
 }
