@@ -28,5 +28,14 @@ func DatabaseConnection() {
 }
 
 func main() {
-	fmt.Println("Just for triggering")
+	// Create gRPC server
+	// var (
+	// 	port = flag.Int("port", 50051, "gRPC server port")
+	// )
+
+	// type server struct {
+	// 	pb.UnimplementedMovieServiceServer
+	// }
+
+	fmt.Println("Triggering")
 }
