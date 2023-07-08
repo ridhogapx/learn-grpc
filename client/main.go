@@ -2,7 +2,9 @@ package main
 
 import (
 	"flag"
+	pb "learn-grpc/proto"
 
+	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -26,4 +28,41 @@ func main() {
 	}
 
 	defer conn.Close()
+
+	client := pb.NewMovieServiceClient(conn)
+
+	r := gin.Default()
+
+	r.POST("/movie", func(ctx *gin.Context) {
+		var movie Movie
+
+		err := ctx.ShouldBind(&movie)
+
+		if err != nil {
+			ctx.JSON(400, gin.H{
+				"error": err,
+			})
+			return
+		}
+
+		data := &pb.Movie{
+			Title: movie.Title,
+			Genre: movie.Genre,
+		}
+
+		res, err := client.CreateMovie(ctx, &pb.CreateMovieRequest{
+			Movie: data,
+		})
+
+		if err != nil {
+			ctx.JSON(400, gin.H{
+				"error": err,
+			})
+			return
+		}
+
+		ctx.JSON(201, gin.H{
+			"movie": res.Movie,
+		})
+	})
 }
