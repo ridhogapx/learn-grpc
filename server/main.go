@@ -56,7 +56,7 @@ func (*server) CreateMovie(ctx context.Context, req *pb.CreateMovieRequest) (*pb
 	res := DB.Create(&data)
 
 	if res.RowsAffected == 0 {
-		return nil, errors.New("Failed to add movie records")
+		return nil, errors.New("failed to add movie records")
 	}
 
 	return &pb.CreateMovieResponse{
