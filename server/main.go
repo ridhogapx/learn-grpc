@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"learn-grpc/model"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -13,8 +16,9 @@ func DatabaseConnection() {
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		panic("Failed to connect Database!")
+		panic("Failed to connect database!")
 	}
 
-	DB.AutoMigrate()
+	DB.AutoMigrate(model.Movie{})
+	fmt.Println("Successfully connect to database!")
 }
