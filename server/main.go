@@ -49,7 +49,7 @@ func (*server) CreateMovie(ctx context.Context, req *pb.CreateMovieRequest) (*pb
 
 	data := model.Movie{
 		ID:    movie.GetId(),
-		Title: movie.GetGenre(),
+		Title: movie.GetTitle(),
 		Genre: movie.GetGenre(),
 	}
 
