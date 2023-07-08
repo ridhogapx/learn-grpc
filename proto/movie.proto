@@ -50,3 +50,11 @@ message DeleteMovieRequest {
 message DeleteMovieResponse {
     bool success=1;
 }
+
+service MovieService {
+    rpc CreateMovie(CreateMovieRequest) returns (CreateMovieResponse) {}
+    rpc GetMovie(ReadMovieRequest) returns (ReadMovieResponse) {}
+    rpc GetMovies(ReadMoviesRequest) returns (ReadMoviesResponse) {}
+    rpc UpdateMovie(UpdateMovieRequest) returns (UpdateMovieResponse) {}
+    rpc DeleteMovie(DeleteMovieRequest) return (DeleteMovieResponse) {}
+}
