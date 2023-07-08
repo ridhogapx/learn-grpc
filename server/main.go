@@ -7,8 +7,10 @@ import (
 	"fmt"
 	"learn-grpc/model"
 	pb "learn-grpc/proto"
+	"net"
 
 	"github.com/google/uuid"
+	"google.golang.org/grpc"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -67,5 +69,19 @@ func (*server) CreateMovie(ctx context.Context, req *pb.CreateMovieRequest) (*pb
 }
 
 func main() {
+	listen, errList := net.Listen("tcp", fmt.Sprintf(":%d", *port))
+
+	if errList != nil {
+		panic("Failed to listen gRPC server!")
+	}
+
+	s := grpc.NewServer()
+
+	pb.RegisterMovieServiceServer(s, &server{})
+	fmt.Printf("Server is listening on port %v", port)
+
+	if errRpc := s.Serve(listen); errRpc != nil {
+		panic("Failed to start gRPC Server!")
+	}
 
 }
