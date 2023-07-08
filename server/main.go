@@ -12,6 +12,10 @@ var DB *gorm.DB
 var dsn string = "host=localhost user=root password=root dbname=learn-grpc port=5432 sslmode=disable"
 var err error
 
+func init() {
+	DatabaseConnection()
+}
+
 func DatabaseConnection() {
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
@@ -21,4 +25,8 @@ func DatabaseConnection() {
 
 	DB.AutoMigrate(model.Movie{})
 	fmt.Println("Successfully connect to database!")
+}
+
+func main() {
+	fmt.Println("Just for triggering")
 }
